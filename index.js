@@ -1,13 +1,17 @@
+// استيراد المكتبات اللازمة
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
+
+// استيراد إعدادات الخادم
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/gasStation', {
+// Connect to MongoDB باستخدام متغير البيئة
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
@@ -21,5 +25,5 @@ app.get('/', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT} in ${process.env.NODE_ENV} mode`);
 });
