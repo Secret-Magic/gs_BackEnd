@@ -21,9 +21,11 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch(err => console.error('Could not connect to MongoDB', err));
 
 // استيراد المسارات
-const accountsRouter = require('./routes/accounts');
+const productRouter = require('./routes/products.routes');
+const accountsRouter = require('./routes/accounts.routes');
 
 // استخدام المسارات
+app.use('/api/products', productRouter);
 app.use('/api/accounts', accountsRouter);
 
 // مسار رئيسي
