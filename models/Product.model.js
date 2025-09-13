@@ -27,6 +27,22 @@ const productSchema = new mongoose.Schema({
         required: true,
         enum: ["بنزين", "ديزل", "غاز", "زيوت", "إضافات", "مستلزمات أخرى"],
     },
+    commission: {
+        type: Number,
+        default: 0,
+        min: 0,
+    },
+    tax: {
+        type: Number,
+        default: 0,
+        min: 0,
+    },
+    evaporationRate: {
+        type: Number,
+        default: 0,
+        min: 0,
+        max: 1, // نسبة مئوية
+    },
     quantity: {
         type: Number,
         required: true,
@@ -51,6 +67,27 @@ const productSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
+    // خصائص خاصة بالزيوت
+    oilDetails: {
+        model: {
+            type: String,
+        },
+        engineType: {
+            type: String,
+            enum: ["بنزين", "ديزل", "باكم", "باور"],
+        },
+        packages: [
+            {
+                size: {
+                    type: Number,
+                },
+                unit: {
+                    type: String,
+                    enum: ["لتر", "مللي لتر"],
+                },
+            },
+        ],
+    },
 });
 
 // تحديث التاريخ عند التعديل
@@ -62,3 +99,4 @@ productSchema.pre("save", function (next) {
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
+
