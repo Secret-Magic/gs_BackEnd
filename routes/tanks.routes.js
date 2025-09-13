@@ -1,7 +1,9 @@
-
 const express = require("express");
 const router = express.Router();
 const Tank = require("../models/Tank");
+
+const authMiddleware = require("../middleware/auth");
+
 
 // الحصول على جميع الخزانات
 router.get("/", async (req, res) => {
@@ -98,5 +100,6 @@ router.delete("/:id", async (req, res) => {
         });
     }
 });
+
 
 module.exports = router;
