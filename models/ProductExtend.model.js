@@ -175,4 +175,4 @@ productExtendSchema.methods.updatePrices = function(purchasePrice, salePrice, co
 
 const ProductExtend = mongoose.model("ProductExtend", productExtendSchema);
 
-module.exports = ProductExtend;
+

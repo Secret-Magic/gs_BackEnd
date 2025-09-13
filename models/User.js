@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -29,12 +30,18 @@ const userSchema = new mongoose.Schema({
     },
 });
 
+
 // تحديث التاريخ عند التعديل
-userSchema.pre("save", function (next) {
-	this.updatedAt = new Date();
-	next();
+userSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) {
+        this.updatedAt = new Date();
+        return next();
+    }
+    // تشفير كلمة المرور قبل حفظها
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    next();
 });
 
-module.exports = mongoose.model("User", userSchema);
 
-module.exports = User;
+module.exports = mongoose.model("User", userSchema);

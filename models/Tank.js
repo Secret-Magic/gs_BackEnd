@@ -45,5 +45,3 @@ tankSchema.pre("save", function (next) {
 });
 
 module.exports = mongoose.model("Tank", tankSchema);
-
-module.exports = Tank;

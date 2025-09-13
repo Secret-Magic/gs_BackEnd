@@ -81,5 +81,3 @@ shiftSchema.pre("save", function (next) {
 });
 
 module.exports = mongoose.model("Shift", shiftSchema);
-
-module.exports = Shift;
